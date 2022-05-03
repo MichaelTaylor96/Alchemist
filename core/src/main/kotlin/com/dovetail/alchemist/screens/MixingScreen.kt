@@ -13,11 +13,8 @@ class MixingScreen(game: AlchemistGame) : GameScreen(game) {
     }
 
     override fun render(delta: Float) {
-        batch.begin()
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.setScreen<PlayScreen>()
         }
-
-        batch.end()
     }
 }
