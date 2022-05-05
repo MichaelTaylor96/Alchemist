@@ -3,15 +3,13 @@ package com.dovetail.alchemist.ecs.systems
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.MathUtils.PI
 import com.badlogic.gdx.math.MathUtils.asin
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.dovetail.alchemist.ecs.components.FacingComponent
-import com.dovetail.alchemist.ecs.components.FacingDirection
-import com.dovetail.alchemist.ecs.components.PlayerComponent
-import com.dovetail.alchemist.ecs.components.TransformComponent
+import com.dovetail.alchemist.ecs.components.*
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.log.logger
@@ -29,8 +27,10 @@ class PlayerInputSystem(
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val transform = entity[TransformComponent.mapper]
         val facing = entity[FacingComponent.mapper]
-        require(transform!=null){"Entity |entity| must have a PlayerComponent. entity=$entity"}
+        val player = entity[PlayerComponent.mapper]
+        require(transform!=null){"Entity |entity| must have a TransformComponent. entity=$entity"}
         require(facing!=null){"Entity |entity| must have a FacingComponent. entity=$entity"}
+        require(player!=null){"Entity |entity| must have a PlayerComponent. entity=$entity"}
 
         mouseVec.x = Gdx.input.x.toFloat()
         mouseVec.y = Gdx.input.y.toFloat()
@@ -45,6 +45,17 @@ class PlayerInputSystem(
             xDiff > 0 && abs(angle) < 45 -> FacingDirection.RIGHT
             xDiff < 0 && abs(angle) < 45 -> FacingDirection.LEFT
             else -> FacingDirection.RIGHT
+        }
+
+        player.movingX = when{
+            Gdx.input.isKeyPressed(Input.Keys.A) -> Movement.NEG
+            Gdx.input.isKeyPressed(Input.Keys.D) -> Movement.POS
+            else -> Movement.NONE
+        }
+        player.movingY = when{
+            Gdx.input.isKeyPressed(Input.Keys.S) -> Movement.NEG
+            Gdx.input.isKeyPressed(Input.Keys.W) -> Movement.POS
+            else -> Movement.NONE
         }
     }
 }
