@@ -10,6 +10,7 @@ import com.dovetail.alchemist.AlchemistGame
 import com.dovetail.alchemist.PPM
 import com.dovetail.alchemist.WORLD_HEIGHT
 import com.dovetail.alchemist.WORLD_WIDTH
+import com.dovetail.alchemist.asset.AtlasAsset
 import com.dovetail.alchemist.ecs.components.*
 import ktx.ashley.entity
 import ktx.ashley.get
@@ -23,6 +24,7 @@ import kotlin.random.Random
 private val LOG = logger<PlayScreen>()
 private const val MAX_DELTA_TIME = 1/20f
 class PlayScreen(game: AlchemistGame) : GameScreen(game) {
+    val engine = game.engine
 
     init {
         val player = game.engine.entity {
@@ -40,8 +42,9 @@ class PlayScreen(game: AlchemistGame) : GameScreen(game) {
         val widthInt = WORLD_WIDTH.toInt()
         val heightInt = WORLD_HEIGHT.toInt()
         repeat(20) {
+            val atlas = game.assets[AtlasAsset.GAME_GRAPHICS.descriptor]
             val ingredientType = IngredientType.values()[Random.nextInt(1,5)]
-            val region = game.graphicsAtlas.findRegion(ingredientType.atlasKey)
+            val region = atlas.findRegion(ingredientType.atlasKey)
             val x = Random.nextInt(widthInt).toFloat()
             val y = Random.nextInt(heightInt).toFloat()
             val ingredient = game.engine.entity {

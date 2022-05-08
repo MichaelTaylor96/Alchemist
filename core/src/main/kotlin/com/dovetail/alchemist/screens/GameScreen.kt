@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.dovetail.alchemist.AlchemistGame
 import ktx.app.KtxScreen
+import ktx.assets.async.AssetStorage
 
 abstract class GameScreen(
     val game: AlchemistGame,
     val viewport: Viewport = game.gameViewport,
-    val engine: Engine = game.engine
+    val assets: AssetStorage = game.assets
 ) : KtxScreen {
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height, true)
