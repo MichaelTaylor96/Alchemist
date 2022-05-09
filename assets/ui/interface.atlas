@@ -1,0 +1,41 @@
+
+interface.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+BitPotion_Black
+  rotate: false
+  xy: 1, 51
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+BitPotion_White
+  rotate: false
+  xy: 259, 51
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+blue_bar
+  rotate: false
+  xy: 1, 17
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+frame1
+  rotate: false
+  xy: 517, 287
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+slot1
+  rotate: false
+  xy: 1, 1
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1

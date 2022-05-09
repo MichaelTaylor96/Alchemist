@@ -4,20 +4,19 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.Application.LOG_DEBUG
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.dovetail.alchemist.asset.AtlasAsset
+import com.dovetail.alchemist.asset.BitmapFontAsset
 import com.dovetail.alchemist.asset.TextureAsset
 import com.dovetail.alchemist.ecs.systems.*
 import com.dovetail.alchemist.screens.GameScreen
 import com.dovetail.alchemist.screens.LoadingScreen
-import com.dovetail.alchemist.screens.MixingScreen
-import com.dovetail.alchemist.screens.PlayScreen
+import com.dovetail.alchemist.ui.createSkin
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import ktx.app.KtxGame
 import ktx.assets.async.AssetStorage
 import ktx.async.KtxAsync
@@ -60,13 +59,13 @@ class AlchemistGame : KtxGame<GameScreen>() {
         Log.debug { "Created game instance" }
 
         val assetRefs = gdxArrayOf(
-            AtlasAsset.values().filter { it.isSkinAtlas }.map { assets.loadAsync(it.descriptor) }
+            AtlasAsset.values().filter { it.isSkinAtlas }.map { assets.loadAsync(it.descriptor) },
             BitmapFontAsset.values().map { assets.loadAsync(it.descriptor) }
         ).flatten()
         KtxAsync.launch {
             assetRefs.joinAll()
             createSkin(assets)
-            addScreen(LoadingScreen(this))
+            addScreen(LoadingScreen(this@AlchemistGame))
             setScreen<LoadingScreen>()
         }
     }

@@ -1,6 +1,7 @@
 package com.dovetail.alchemist.asset
 
 import com.badlogic.gdx.assets.AssetDescriptor
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -23,7 +24,7 @@ enum class AtlasAsset(
     )
 ) {
     GAME_GRAPHICS("graphics.atlas", false),
-    UI("ui.atlas", true, "ui")
+    UI("interface.atlas", true, "ui")
 }
 
 enum class BitmapFontAsset(
@@ -31,6 +32,12 @@ enum class BitmapFontAsset(
     directory: String = "ui",
     val descriptor: AssetDescriptor<BitmapFont> = AssetDescriptor(
         "$directory/$fileName",
-        BitmapFont::class.java
+        BitmapFont::class.java,
+        BitmapFontLoader.BitmapFontParameter().apply {
+            atlasName = AtlasAsset.UI.descriptor.fileName
+        }
     )
-) { }
+) {
+    WHITE_FONT("BitPotion_White.fnt"),
+    BLACK_FONT("BitPotion_Black.fnt")
+}
