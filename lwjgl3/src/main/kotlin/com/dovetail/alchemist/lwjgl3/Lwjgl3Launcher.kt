@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
     Lwjgl3Application(AlchemistGame(), Lwjgl3ApplicationConfiguration().apply {
 
         setTitle("Alchemist")
-        setWindowedMode(640, 480)
+        setWindowedMode(16*100, 9*100)
         setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png")
 
         useVsync(true)
