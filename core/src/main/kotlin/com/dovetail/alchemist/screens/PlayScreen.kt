@@ -41,7 +41,7 @@ class PlayScreen(game: AlchemistGame) : GameScreen(game) {
 
         val widthInt = WORLD_WIDTH.toInt()
         val heightInt = WORLD_HEIGHT.toInt()
-        repeat(20) {
+        repeat(200) {
             val atlas = game.assets[AtlasAsset.GAME_GRAPHICS.descriptor]
             val ingredientType = IngredientType.values()[Random.nextInt(1,5)]
             val region = atlas.findRegion(ingredientType.atlasKey)
