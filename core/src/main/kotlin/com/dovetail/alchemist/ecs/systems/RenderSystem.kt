@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.dovetail.alchemist.VIEWPORT_HEIGHT
+import com.dovetail.alchemist.VIEWPORT_WIDTH
 import com.dovetail.alchemist.WORLD_HEIGHT
 import com.dovetail.alchemist.WORLD_WIDTH
-import com.dovetail.alchemist.ecs.components.GraphicComponent
-import com.dovetail.alchemist.ecs.components.TransformComponent
+import com.dovetail.alchemist.ecs.components.*
 import ktx.ashley.allOf
 import ktx.ashley.get
+import ktx.graphics.center
 import ktx.graphics.use
+import kotlin.math.max
+import kotlin.math.min
 
 class RenderSystem(
         private val batch : Batch,
@@ -32,6 +36,13 @@ class RenderSystem(
         val graphic = entity[GraphicComponent.mapper]
         require(transform!=null){"Entity |entity| must have a TransformComponent. entity=$entity"}
         require(graphic!=null){"Entity |entity| must have a GraphicComponent. entity=$entity"}
+        val player = entity[PlayerComponent.mapper]
+        if (player!=null) {
+            val new_x = max(min(transform.interpolatedPosition.x*2, WORLD_WIDTH), VIEWPORT_WIDTH)
+            val new_y = max(min(transform.interpolatedPosition.y*2, WORLD_HEIGHT), VIEWPORT_HEIGHT)
+            viewport.camera.center(new_x, new_y)
+            viewport.camera.update()
+        }
 
         graphic.sprite.run {
             rotation = transform.rotation

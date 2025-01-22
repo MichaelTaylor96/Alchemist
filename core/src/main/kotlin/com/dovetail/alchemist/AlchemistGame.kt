@@ -24,13 +24,15 @@ import ktx.collections.gdxArrayOf
 import ktx.log.logger
 
 const val PPM = 50f
-const val WORLD_WIDTH = 16 * PPM
-const val WORLD_HEIGHT = 9 * PPM
+const val VIEWPORT_WIDTH = 16 * PPM
+const val VIEWPORT_HEIGHT = 9 * PPM
+const val WORLD_WIDTH = 100 * PPM
+const val WORLD_HEIGHT = 100 * PPM
 private val Log = logger<AlchemistGame>()
 class AlchemistGame : KtxGame<GameScreen>() {
     val batch : Batch by lazy { SpriteBatch() }
-    val gameViewport = FitViewport(WORLD_WIDTH, WORLD_HEIGHT)
-    val uiViewport = FitViewport(WORLD_WIDTH, WORLD_HEIGHT)
+    val gameViewport = FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+    val uiViewport = FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
     val stage : Stage by lazy {
         val result = Stage(uiViewport, batch)
         Gdx.input.inputProcessor = result

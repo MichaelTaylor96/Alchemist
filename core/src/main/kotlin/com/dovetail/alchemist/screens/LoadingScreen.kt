@@ -71,6 +71,8 @@ class LoadingScreen(game : AlchemistGame) : GameScreen(game) {
                 pack()
             }
         }
+
+        stage.isDebugAll = true
     }
 
     override fun render(delta: Float) {
